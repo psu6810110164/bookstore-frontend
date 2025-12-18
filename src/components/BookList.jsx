@@ -6,7 +6,7 @@ export default function BookList(props) {
       title: "Cover",
       dataIndex: 'coverUrl',
       key: 'coverUrl',
-      // แสดงรูปภาพจากพอร์ต 3080 (หน้า 12, 133)
+      
       render: (text) => (
         <Image
           src={`http://localhost:3080${text}`}
@@ -28,7 +28,7 @@ export default function BookList(props) {
       title: "Category",
       dataIndex: 'category',
       key: 'category',
-      // ดึงชื่อหมวดหมู่จาก Object (หน้า 92, 114)
+     
       render: (cat) => <Tag color="blue">{cat?.name || "ทั่วไป"}</Tag>
     },
     { title: "Liked", dataIndex: 'likeCount', key: 'likeCount', render: (v) => `❤️ ${v}` },

@@ -6,19 +6,24 @@ export default function EditBook(props) {
 
   useEffect(() => {
     if (props.isOpen && props.item) {
-      form.setFieldsValue(props.item);
+      form.setFieldsValue({
+        id: props.item.id,
+        title: props.item.title,
+        author: props.item.author,
+        price: Number(props.item.price),
+        stock: Number(props.item.stock),
+        categoryId: Number(props.item.category?.id),
+      });
     }
-  }, [props.isOpen, props.item, form]);
+  }, [props.isOpen, props.item]);
+
+
 
   const handleFormSubmit = () => {
-    form.validateFields()
-      .then(formData => {
-        props.onSave(formData); 
-        form.resetFields();
-      })
-      .catch(info => {
-        console.log('Validate Failed:', info);
-      });
+    form.validateFields().then(formData => {
+      props.onSave(formData);
+      form.resetFields();
+    });
   };
 
   return (
@@ -26,40 +31,36 @@ export default function EditBook(props) {
       title="Edit Book"
       open={props.isOpen}
       onOk={handleFormSubmit}
-      onCancel={() => {
-        form.resetFields();
-        props.onCancel();
-      }}
-      okText="Save"
-      cancelText="Cancel"
+      onCancel={props.onCancel}
     >
-      <Form
-        form={form}
-        layout="vertical"
-      >
+      <Form form={form} layout="vertical">
+
+        { }
+        <Form.Item name="id" hidden>
+          <Input />
+        </Form.Item>
+
         <Form.Item name="title" label="Title" rules={[{ required: true }]}>
-          <Input placeholder="ชื่อหนังสือ" />
+          <Input />
         </Form.Item>
 
         <Form.Item name="author" label="Author" rules={[{ required: true }]}>
-          <Input placeholder="ชื่อผู้แต่ง" />
+          <Input />
         </Form.Item>
 
-        <Form.Item name="price" label="Price" rules={[{ required: true }]}>
-          <InputNumber placeholder="ราคา" min={0} style={{ width: '100%' }} />
+        <Form.Item name="price" label="Price" rules={[{ required: true }, { type: 'number', min: 0.01 }]}>
+          <InputNumber min={0.01} step={0.01} style={{ width: '100%' }} />
         </Form.Item>
 
-        <Form.Item name="stock" label="Stock" rules={[{ required: true }]}>
-          <InputNumber placeholder="จำนวน" min={0} style={{ width: '100%' }} />
+
+        <Form.Item name="stock" label="Stock" rules={[{ required: true }, { type: 'number', min: 0 }]}>
+          <InputNumber min={0} style={{ width: '100%' }} />
         </Form.Item>
 
         <Form.Item name="categoryId" label="Category" rules={[{ required: true }]}>
-          <Select 
-            placeholder="เลือกหมวดหมู่"
-            allowClear 
-            options={props.categories} 
-          />
+          <Select options={props.categories} />
         </Form.Item>
+
       </Form>
     </Modal>
   );
