@@ -2,18 +2,17 @@ import { Button, Form, Select, Input, InputNumber, Space } from 'antd';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// 1. ตั้งค่า URL สำหรับดึงหมวดหมู่ (หน้า 14)
 const URL_CATEGORY = "/api/book-category";
 
 export default function AddBook(props) {
   const [form] = Form.useForm();
-  const [categories, setCategories] = useState([]); // เก็บรายการหมวดหมู่ที่ดึงมาจาก Server [cite: 239]
+  const [categories, setCategories] = useState([]);
 
-  // 2. ฟังก์ชันดึงรายการหมวดหมู่จาก Server (หน้า 14) [cite: 240, 242]
+  
   const fetchCategories = async () => {
     try {
       const response = await axios.get(URL_CATEGORY);
-      // ปรับรูปแบบข้อมูลให้เข้ากับ Select ของ Ant Design (label และ value)
+      
       const options = response.data.map(cat => ({
         label: cat.name,
         value: cat.id
@@ -24,14 +23,13 @@ export default function AddBook(props) {
     }
   };
 
-  // 3. เรียกดึงหมวดหมู่ทันทีที่ Component โหลด (หน้า 14) [cite: 244, 245, 246]
+  
   useEffect(() => {
     fetchCategories();
   }, []);
 
   const onFinish = (values) => {
-    // 4. ส่งข้อมูลกลับไปที่ App.jsx (หน้า 15)
-    // หมายเหตุ: Backend ต้องการ categoryId เป็นตัวเลข ไม่ใช่ชื่อหมวดหมู่ [cite: 274]
+    
     props.onBookAdded(values);
     form.resetFields();
   };
@@ -59,7 +57,7 @@ export default function AddBook(props) {
         <InputNumber placeholder="จำนวน" min={0} />
       </Form.Item>
 
-      {/* 5. ช่องเลือกหมวดหมู่ที่ดึงมาจาก API (หน้า 14) [cite: 250] */}
+      {}
       <Form.Item name="categoryId" label="Category" rules={[{ required: true }]}>
         <Select 
           placeholder="เลือกหมวดหมู่"
