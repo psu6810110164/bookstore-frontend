@@ -8,9 +8,9 @@ export default function BookList(props) {
       key: 'coverUrl',
       // แสดงรูปภาพจากพอร์ต 3080 (หน้า 12, 133)
       render: (text) => (
-        <Image 
-          src={`http://localhost:3080${text}`} 
-          height={80} 
+        <Image
+          src={`http://localhost:3080${text}`}
+          height={80}
           fallback="https://via.placeholder.com/80x100?text=No+Cover"
         />
       ),
@@ -37,7 +37,9 @@ export default function BookList(props) {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => props.onLiked(record.id)}>Like</Button>
+          <Button type="primary" onClick={() => props.onLiked(record.id)}>Like </Button>
+          <Button style={{ backgroundColor: '#FFEBCD', color: 'black' }}
+            onClick={() => props.onEdit(record)}>Edit </Button>
           <Popconfirm title="ยืนยันการลบ?" onConfirm={() => props.onDeleted(record.id)}>
             <Button danger>Delete</Button>
           </Popconfirm>
@@ -47,11 +49,11 @@ export default function BookList(props) {
   ];
 
   return (
-    <Table 
-      columns={columns} 
-      dataSource={props.data} 
-      rowKey="id" 
-      pagination={{ pageSize: 5 }} 
+    <Table
+      columns={columns}
+      dataSource={props.data}
+      rowKey="id"
+      pagination={{ pageSize: 5 }}
     />
   );
 }
