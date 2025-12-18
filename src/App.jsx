@@ -4,6 +4,8 @@ import { useState } from 'react';
 import LoginScreen from './components/LoginScreen';
 import BookScreen from './components/BookScreen';
 
+axios.defaults.baseURL = "http://localhost:3000";
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 

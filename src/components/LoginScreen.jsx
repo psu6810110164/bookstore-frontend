@@ -13,9 +13,9 @@ export default function LoginScreen(props) {
         try {
             setIsLoading(true)
             setErrMsg(null)
-            // เติมส่วนที่ขาด: ส่ง formData ไปที่ URL_AUTH
+            
             const response = await axios.post(URL_AUTH, formData)
-            // เติมส่วนที่ขาด: ดึง token ออกมาจาก response.data
+            
             const token = response.data.access_token
 
             axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
