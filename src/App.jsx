@@ -1,11 +1,25 @@
 import './App.css';
 import axios from 'axios'
-
-axios.defaults.baseURL = "http://localhost:3000"
+import { useState } from 'react';
+import LoginScreen from './components/LoginScreen';
+import BookScreen from './components/BookScreen';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true) 
+  }
+
   return (
-    <> This is App.jsx </>
+    <>
+      {}
+      {!isAuthenticated ? (
+        <LoginScreen onLoginSuccess={handleLoginSuccess} />
+      ) : (
+        <BookScreen />
+      )}
+    </>
   );
 }
 
